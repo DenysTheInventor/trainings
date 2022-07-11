@@ -5,15 +5,68 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link href="https://cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.muicss.com/mui-latest/js/mui.min.js"></script>
+    <script src="https://kit.fontawesome.com/6776c2db7e.js" crossorigin="anonymous"></script>
     <title>GIZ trainings:</title>
   </head>
   <body>
+    <button class="mui-btn mui-btn--fab mui-btn--accent" id="add-btn">+</button>
     <div id="sidebar">
       <div class="mui--text-white mui--text-display1 mui--align-vertical">GIZ trainings</div>
     </div>
     <div id="content" class="mui-container-fluid">
       <div class="mui-row">
-        
+        <div class="mui-col-sm-10 mui-col-sm-offset-1">
+            <table class="mui-table">
+                <thead>
+                  <tr class="panel">
+                    <th class="panel-icon">
+                        <i class="fa-solid fa-font-awesome"></i>
+                    </th>
+                    <th class="panel-type">Type</th>
+                    <th class="panel-date">Date</th>
+                    <th class="panel-time">Time</th>
+                    <th class="panel-teacher">Teacher</th>
+                    <th class="panel-theme">T</th>
+                    <th class="panel-group">G</th>
+                    <th class="panel-module">M</th>
+                    <th class="panel-people">
+                        <i class="fa-solid fa-people-group"></i>
+                    </th>
+                    <th class="panel-sort">
+                        <button class="mui-btn mui-btn--primary">
+                            <i class="fa-solid fa-arrow-down-a-z"></i>
+                        </button>
+                    </th>
+                  </tr>
+                </thead>
+                <tbody>
+                    <tr class="row mui-panel" data-id="122">
+                        <td class="row-icon color-2196F3">
+                            <i class="fa-solid fa-file-word"></i>
+                        </td>
+                        <td class="row-type">MS Office Word</td>
+                        <td class="row-date">2022-07-09</td>
+                        <td class="row-time">10:12</td>
+                        <td class="row-teacher">Denis Dmitriev</td>
+                        <td class="row-theme">2</td>
+                        <td class="row-group">26</td>
+                        <td class="row-module">5</td>
+                        <td class="row-people">
+                            26
+                        </td>
+                        <td class="row-sort">
+                            <button class="mui-btn mui-btn--primary" data-mui-toggle="dropdown">
+                                <i class="fa-solid fa-ellipsis-vertical"></i>
+                              </button>
+                              <ul class="mui-dropdown__menu">
+                                <li><a href="#">Update</a></li>
+                                <li><a href="#">Delete</a></li>
+                              </ul>
+                        </td>
+                    </tr>                 
+                </tbody>
+              </table>
+        </div>
       </div>
     </div>
   </body>
