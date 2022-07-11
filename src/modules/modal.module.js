@@ -14,4 +14,8 @@ export class Modal {
 
     mui.overlay("on", modal);
   }
+
+  static cancel() {
+    mui.overlay("off");
+  }
 }
