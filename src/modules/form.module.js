@@ -1,5 +1,5 @@
 import { basicFormSettings } from "../settings";
-import { setThemeView } from "../utils";
+import { setRecordTime, setThemeView } from "../utils";
 import { Modal } from "./modal.module";
 
 export class Form {
@@ -129,6 +129,20 @@ export function getDBrecords() {
     });
 }
 
+function deleteDBrecord(id) {
+  fetch(
+    `https://giz-trainings-default-rtdb.asia-southeast1.firebasedatabase.app/records/${id}.json`,
+    {
+      method: "DELETE",
+      headers: {
+        "Content-type": "application/json",
+      },
+    }
+  )
+    .then((response) => response.json())
+    .then((deletedRecord) => console.log(deletedRecord));
+}
+
 function renderList(records) {
   const table = document.querySelector("#records-table tbody");
   table.innerHTML = "";
@@ -145,6 +159,7 @@ function renderList(records) {
 
 function renderRecord(record, id) {
   const theme = setThemeView(record.theme);
+  const time = setRecordTime(record.type, record.time);
   return `
   <tr class="row mui-panel" data-id="${id}">
   <td class="row-icon ${theme.color}">
@@ -152,7 +167,7 @@ function renderRecord(record, id) {
   </td>
   <td class="row-type">${theme.name}</td>
   <td class="row-date">${record.date}</td>
-  <td class="row-time">${record.time}</td>
+  <td class="row-time">${time}</td>
   <td class="row-teacher">Denis Dmitriev</td>
   <td class="row-theme">${record.theme}</td>
   <td class="row-group">${record.group}</td>
@@ -179,5 +194,8 @@ function deleteRecord(e) {
   const record = target.closest(".row");
   const recordId = target.dataset.id;
 
+  console.log(recordId);
+
   record.remove();
+  deleteDBrecord(recordId);
 }

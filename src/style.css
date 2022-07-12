@@ -119,6 +119,13 @@
     position: relative;
  }
 
+ .row-type, .row-teacher {
+   white-space: nowrap; 
+   width: 300px; 
+   overflow: hidden;
+   text-overflow: ellipsis; 
+ }
+
  /* MODAL */
 
  .modal {
