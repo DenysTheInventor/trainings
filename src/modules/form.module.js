@@ -1,15 +1,32 @@
 import { basicFormSettings } from "../settings";
 import { setRecordTime, setThemeView } from "../utils";
 import { Modal } from "./modal.module";
+import { Database } from "./db.module";
 
 export class Form {
-  static handleForm() {
+  static renderList(records) {
+    const table = document.querySelector("#records-table tbody");
+    table.innerHTML = "";
+
+    for (const key in records) {
+      table.innerHTML += renderRecord(records[key], key);
+    }
+
+    addControlEvents();
+  }
+
+  static handleNewForm() {
     Modal.show("Create new record:", setFormFrame(basicFormSettings));
-    addFormListener();
+    addFormListener(false);
+  }
+
+  static handleUpdateForm(formToChange, id) {
+    Modal.show("Change record:", setFormFrame(formToChange));
+    addFormListener(true, id);
   }
 }
 
-function addFormListener() {
+function addFormListener(updated = true, id) {
   const recordForm = document.getElementById("record-form");
   recordForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -26,13 +43,22 @@ function addFormListener() {
       notes: document.getElementById("record-notes").value.trim(),
     };
 
-    createBDrecord(newRecord);
-    Modal.cancel();
-    getDBrecords();
+    if (updated === true) {
+      Database.updateDBrecord(id, newRecord);
+      setTimeout(() => {
+        Modal.cancel();
+        Database.getDBrecords();
+      }, 500);
+    } else {
+      Database.createBDrecord(newRecord);
+      Modal.cancel();
+      Database.getDBrecords();
+    }
   });
 }
 
 function setFormFrame(form) {
+  console.log(form);
   return `
         <form class="mui-form" id="record-form">
         <div class="note-form__row">
@@ -45,7 +71,7 @@ function setFormFrame(form) {
                   <option value="1">1</option>
                   <option value="2">2</option>
                   <option value="3">3</option>
-                  <option value="5">4</option>
+                  <option value="4">4</option>
                 </select>
                 <label>Module</label>
             </div>
@@ -100,60 +126,15 @@ function setFormFrame(form) {
         `;
 }
 
-function createBDrecord(record) {
-  return fetch(
-    "https://giz-trainings-default-rtdb.asia-southeast1.firebasedatabase.app/records.json",
-    {
-      method: "POST",
-      body: JSON.stringify(record),
-      header: {
-        "Content-Type": "application/json",
-      },
-    }
-  )
-    .then((response) => response.json())
-    .then((response) => {
-      record.id = response.name;
-      console.log(record);
-    });
-}
-
-export function getDBrecords() {
-  fetch(
-    `https://giz-trainings-default-rtdb.asia-southeast1.firebasedatabase.app/records.json`
-  )
-    .then((response) => response.json())
-    .then((records) => {
-      console.log(records);
-      renderList(records);
-    });
-}
-
-function deleteDBrecord(id) {
-  fetch(
-    `https://giz-trainings-default-rtdb.asia-southeast1.firebasedatabase.app/records/${id}.json`,
-    {
-      method: "DELETE",
-      headers: {
-        "Content-type": "application/json",
-      },
-    }
-  )
-    .then((response) => response.json())
-    .then((deletedRecord) => console.log(deletedRecord));
-}
-
-function renderList(records) {
-  const table = document.querySelector("#records-table tbody");
-  table.innerHTML = "";
-
-  for (const key in records) {
-    table.innerHTML += renderRecord(records[key], key);
-  }
-
+function addControlEvents() {
   const deleteBTNS = document.querySelectorAll(".row-delete a");
+  const updateBTNS = document.querySelectorAll(".row-update a");
+
   deleteBTNS.forEach((btn) => {
     btn.addEventListener("click", deleteRecord);
+  });
+  updateBTNS.forEach((btn) => {
+    btn.addEventListener("click", updateRecord);
   });
 }
 
@@ -180,7 +161,7 @@ function renderRecord(record, id) {
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </button>
         <ul class="mui-dropdown__menu">
-          <li><a href="#">Update</a></li>
+          <li class="row-update"><a href="#">Update</a></li>
           <li class="row-delete"><a href="#">Delete</a></li>
         </ul>
   </td>
@@ -192,10 +173,16 @@ function deleteRecord(e) {
   e.preventDefault();
   const { target } = e;
   const record = target.closest(".row");
-  const recordId = target.dataset.id;
+  const recordId = record.dataset.id;
 
-  console.log(recordId);
-
+  Database.deleteDBrecord(recordId);
   record.remove();
-  deleteDBrecord(recordId);
+}
+
+function updateRecord(e) {
+  e.preventDefault();
+  const { target } = e;
+  const record = target.closest(".row");
+  const recordId = record.dataset.id;
+  Database.getDBrecord(recordId);
 }

@@ -160,3 +160,47 @@
  .w-50 {
     width: 48%;
  }
+
+ /* CHART TAB */
+
+ .info-row {
+   width: 100%;
+   display: flex;
+   justify-content: space-between;
+   align-items: center;
+   margin: 20px;
+ }
+
+ .w-30 {
+   width: 30%;
+ }
+
+ .w-100 {
+   width: 100%;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+ }
+
+ .info-row__block {
+   padding: 20px;
+   display: flex;
+   justify-content: space-around;
+ }
+
+ .info-icon {
+   font-size: 40px;
+ }
+
+ .text-bg {
+   font-size: 22px;
+   font-weight: 700;
+ }
+
+ .text-sm {
+   font-size: 16px;
+ }
+
+ .text-fw {
+   font-weight: 500;
+ }

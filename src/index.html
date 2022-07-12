@@ -6,6 +6,7 @@
     <link href="https://cdn.muicss.com/mui-latest/css/mui.min.css" rel="stylesheet" type="text/css" />
     <script src="https://cdn.muicss.com/mui-latest/js/mui.min.js"></script>
     <script src="https://kit.fontawesome.com/6776c2db7e.js" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.8.0/chart.js" integrity="sha512-5m2r+g00HDHnhXQDbRLAfZBwPpPCaK+wPLV6lm8VQ+09ilGdHfXV7IVyKPkLOTfi4vTTUVJnz7ELs7cA87/GMA==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     <title>GIZ trainings:</title>
   </head>
   <body>
@@ -16,33 +17,99 @@
     <div id="content" class="mui-container-fluid">
       <div class="mui-row">
         <div class="mui-col-sm-10 mui-col-sm-offset-1">
+          <ul class="mui-tabs__bar mui-tabs__bar--justified">
+            <li class="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="pane-justified-1">Timesheet</a></li>
+            <li><a data-mui-toggle="tab" data-mui-controls="pane-justified-2">Info</a></li>
+            <li><a data-mui-toggle="tab" data-mui-controls="pane-justified-3">Access</a></li>
+          </ul>
+          <div class="mui-tabs__pane mui--is-active" id="pane-justified-1">
             <table class="mui-table" id="records-table">
-                <thead>
-                  <tr class="panel">
-                    <th class="panel-icon">
-                        <i class="fa-solid fa-font-awesome"></i>
-                    </th>
-                    <th class="panel-type">Type</th>
-                    <th class="panel-date">Date</th>
-                    <th class="panel-time">Time</th>
-                    <th class="panel-teacher">Teacher</th>
-                    <th class="panel-theme">T</th>
-                    <th class="panel-group">G</th>
-                    <th class="panel-module">M</th>
-                    <th class="panel-people">
-                        <i class="fa-solid fa-people-group"></i>
-                    </th>
-                    <th class="panel-sort">
-                        <button class="mui-btn mui-btn--primary">
-                            <i class="fa-solid fa-arrow-down-a-z"></i>
-                        </button>
-                    </th>
-                  </tr>
-                </thead>
-                <tbody>
-                                  
-                </tbody>
-              </table>
+              <thead>
+                <tr class="panel">
+                  <th class="panel-icon">
+                      <i class="fa-solid fa-font-awesome"></i>
+                  </th>
+                  <th class="panel-type">Type</th>
+                  <th class="panel-date">Date</th>
+                  <th class="panel-time">Time</th>
+                  <th class="panel-teacher">Teacher</th>
+                  <th class="panel-theme">T</th>
+                  <th class="panel-group">G</th>
+                  <th class="panel-module">M</th>
+                  <th class="panel-people">
+                      <i class="fa-solid fa-people-group"></i>
+                  </th>
+                  <th class="panel-sort">
+                      <button class="mui-btn mui-btn--primary">
+                          <i class="fa-solid fa-arrow-down-a-z"></i>
+                      </button>
+                  </th>
+                </tr>
+              </thead>
+              <tbody>
+                                
+              </tbody>
+            </table>
+          </div>
+          <div class="mui-tabs__pane" id="pane-justified-2">
+            <div class="info-row">
+              <div class="info-row__block mui-panel w-30">
+                <i class="fa-solid fa-person-chalkboard info-icon color-08cad1"></i>
+                <div class="info-row__block-text">
+                  <div class="text-prime">
+                    <span class="text-bg">34</span>
+                    <span class="text-sm text-fw"> lessons</span>
+                  </div>
+                  <div class="text-additional">
+                    <span class="text-sm">Lorem ipsum dolor sit amet.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="info-row__block mui-panel w-30">
+                <i class="fa-solid fa-people-group info-icon color-9d94ff"></i>
+                <div class="info-row__block-text">
+                  <div class="text-prime">
+                    <span class="text-bg">1230</span>
+                    <span class="text-sm text-fw"> people have been teached</span>
+                  </div>
+                  <div class="text-additional">
+                    <span class="text-sm">Lorem ipsum dolor sit amet.</span>
+                  </div>
+                </div>
+              </div>
+              <div class="info-row__block mui-panel w-30">
+                <i class="fa-solid fa-money-bill-1-wave info-icon color-ff6961"></i>
+                <div class="info-row__block-text">
+                  <div class="text-prime">
+                    <span class="text-bg">340 uah</span>
+                    <span class="text-sm text-fw"> earned</span>
+                  </div>
+                  <div class="text-additional">
+                    <span class="text-sm">Lorem ipsum dolor sit amet.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="mui-panel w-100">
+                <canvas id="myChart" width="500" height="500"></canvas>
+              </div>
+            </div>
+            <div class="info-row">
+              <div class="mui-panel w-100">
+                <i class="fa-solid fa-person info-icon"></i>
+                <div class="info-row__block-text">
+                  <div class="text-prime">
+                    <span class="text-bg">Denis Dmitriev</span>
+                  </div>
+                  <div class="text-additional">
+                    <span class="text-sm">Lorem ipsum dolor sit amet.</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="mui-tabs__pane" id="pane-justified-3">Pane-3</div>
         </div>
       </div>
     </div>

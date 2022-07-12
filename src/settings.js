@@ -34,7 +34,7 @@ export const courses = [
 export const basicFormSettings = {
   group: 1,
   module: 1,
-  theme: 1,
+  theme: "MS Office Word",
   people: 3,
   time: "10:00",
   date: "2022-07-07",

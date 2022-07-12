@@ -33,3 +33,5 @@ export function setRecordTime(type, startTime) {
   const endTime = startTimeArray.join("");
   return `${startTime} - ${endTime}`;
 }
+
+const API_KEY = "AIzaSyDGbR7vzUuZ7gIGr0pRVRjM5x-E8nqsWkQ";

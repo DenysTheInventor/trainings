@@ -18,4 +18,16 @@ export class Modal {
   static cancel() {
     mui.overlay("off");
   }
+
+  static toggleLoader() {
+    const loader = document.querySelector(".loader");
+    const isHidden = loader.hasAttribute("hidden");
+
+    if (isHidden) {
+      loader.removeAttribute("hidden");
+      hideWeatherCard();
+    } else {
+      loader.setAttribute("hidden", "");
+    }
+  }
 }
