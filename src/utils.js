@@ -46,4 +46,5 @@ export function addTaskIcon(event) {
   }
 }
 
-const API_KEY = "AIzaSyDGbR7vzUuZ7gIGr0pRVRjM5x-E8nqsWkQ";
+const TEAM_API_KEY =
+  "549f3a7741960eec918a71f67d9ae4086e22e838f5b6e5ac906da8cf8616f34e";
