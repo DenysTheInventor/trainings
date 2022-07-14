@@ -2,6 +2,8 @@ import { basicFormSettings } from "../settings";
 import { setRecordTime, setThemeView } from "../utils";
 import { Modal } from "./modal.module";
 import { Database } from "./db.module";
+import { createGraph } from "./chart.module";
+import { lessons } from "../settings";
 
 export class Form {
   static renderList(records) {
@@ -12,7 +14,10 @@ export class Form {
       table.innerHTML += renderRecord(records[key], key);
     }
 
+    const info = allLessonsCountArray(records);
+
     addControlEvents();
+    drawGraph(info);
   }
 
   static handleNewForm() {
@@ -24,6 +29,49 @@ export class Form {
     Modal.show("Change record:", setFormFrame(formToChange));
     addFormListener(true, id);
   }
+}
+
+function allLessonsCountArray(records) {
+  const allObjLessons = [];
+  const allLessons = [...lessons];
+
+  for (const key in records) {
+    allObjLessons.push(records[key]);
+  }
+
+  allObjLessons.forEach((lesson) => {
+    const index = allLessons.findIndex((item) => item.theme == lesson.theme);
+    allLessons[index].count += 1;
+    allLessons[index].people += Number(lesson.people);
+    allLessons[index].salary += Number(lesson.salary);
+  });
+
+  console.log(allLessons);
+
+  return {
+    personLessons: allLessons.map((lesson) => lesson.count),
+    personPeople: allLessons.map((lesson) => lesson.people),
+    personSalary: allLessons.map((lesson) => lesson.salary),
+  };
+}
+
+function drawGraph(info) {
+  console.log(info);
+  const { personLessons, personPeople, personSalary } = info;
+  const lessons = personLessons.reduce((acc, item) => (acc += item), 0);
+  const people = personPeople.reduce((acc, item) => (acc += item), 0);
+  const salary = personSalary.reduce((acc, item) => (acc += item), 0);
+
+  const ctx = document.getElementById("myChart");
+  const personLessonsHTML = document.querySelector(".person-lessons");
+  const personPeopleHTML = document.querySelector(".person-people");
+  const personSalaryHTML = document.querySelector(".person-salary");
+
+  const graph = createGraph(personLessons);
+  const myChart = new Chart(ctx, graph);
+  personLessonsHTML.innerText = lessons;
+  personPeopleHTML.innerText = people;
+  personSalaryHTML.innerText = salary;
 }
 
 function addFormListener(updated = true, id) {
@@ -41,6 +89,7 @@ function addFormListener(updated = true, id) {
       link: document.getElementById("record-link").value,
       type: document.getElementById("record-type").value,
       notes: document.getElementById("record-notes").value.trim(),
+      salary: Number(document.getElementById("record-type").value) * 350,
     };
 
     if (updated === true) {
@@ -58,7 +107,6 @@ function addFormListener(updated = true, id) {
 }
 
 function setFormFrame(form) {
-  console.log(form);
   return `
         <form class="mui-form" id="record-form">
         <div class="note-form__row">
@@ -110,8 +158,8 @@ function setFormFrame(form) {
             </div>
             <div class="mui-select w-50">
                 <select id="record-type" value="${form.type}" required>
-                  <option value="1">Online</option>
-                  <option value="2">Offline</option>
+                  <option value="2">Online</option>
+                  <option value="1">Offline</option>
                 </select>
                 <label>Module type</label>
             </div>

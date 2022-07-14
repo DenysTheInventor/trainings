@@ -13,14 +13,15 @@
     <button class="mui-btn mui-btn--fab mui-btn--accent" id="add-btn">+</button>
     <div id="sidebar">
       <div class="mui--text-white mui--text-display1 mui--align-vertical">GIZ trainings</div>
+      <a href="./signin.html" class="color-ffb480">Sign in</a>
     </div>
     <div id="content" class="mui-container-fluid">
       <div class="mui-row">
         <div class="mui-col-sm-10 mui-col-sm-offset-1">
-          <ul class="mui-tabs__bar mui-tabs__bar--justified">
-            <li class="mui--is-active"><a data-mui-toggle="tab" data-mui-controls="pane-justified-1">Timesheet</a></li>
-            <li><a data-mui-toggle="tab" data-mui-controls="pane-justified-2">Info</a></li>
-            <li><a data-mui-toggle="tab" data-mui-controls="pane-justified-3">Access</a></li>
+          <ul class="mui-tabs__bar mui-tabs__bar--justified control-tabs">
+            <li class="mui--is-active"><a data-mui-toggle="tab" class="timesheet" data-mui-controls="pane-justified-1">Timesheet</a></li>
+            <li><a data-mui-toggle="tab" class="info" data-mui-controls="pane-justified-2">Info</a></li>
+            <li><a data-mui-toggle="tab" class="access" data-mui-controls="pane-justified-3">Access</a></li>
           </ul>
           <div class="mui-tabs__pane mui--is-active" id="pane-justified-1">
             <table class="mui-table" id="records-table">
@@ -52,52 +53,66 @@
             </table>
           </div>
           <div class="mui-tabs__pane" id="pane-justified-2">
-            <div class="info-row">
-              <div class="info-row__block mui-panel w-30">
-                <i class="fa-solid fa-person-chalkboard info-icon color-08cad1"></i>
-                <div class="info-row__block-text">
-                  <div class="text-prime">
-                    <span class="text-bg">34</span>
-                    <span class="text-sm text-fw"> lessons</span>
-                  </div>
-                  <div class="text-additional">
-                    <span class="text-sm">Lorem ipsum dolor sit amet.</span>
+            <div class="info-row link-row" style="margin-top: 20px;">
+              <a class="link-row__item" target="_blank" href="#">
+                <div class="link-block mui-panel">
+                  <i class="fa-solid fa-camera color-08cad1"></i>
+                  <div class="info-row__block-text">
+                    <div class="text-prime">
+                      <span class="text-bg">Screenshots</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="info-row__block mui-panel w-30">
-                <i class="fa-solid fa-people-group info-icon color-9d94ff"></i>
-                <div class="info-row__block-text">
-                  <div class="text-prime">
-                    <span class="text-bg">1230</span>
-                    <span class="text-sm text-fw"> people have been teached</span>
-                  </div>
-                  <div class="text-additional">
-                    <span class="text-sm">Lorem ipsum dolor sit amet.</span>
+              </a>
+              <a class="link-row__item" target="_blank" href="#">
+                <div class="link-block mui-panel">
+                  <i class="fa-solid fa-certificate color-08cad1"></i>
+                  <div class="info-row__block-text">
+                    <div class="text-prime">
+                      <span class="text-bg">Diplomas</span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="info-row__block mui-panel w-30">
-                <i class="fa-solid fa-money-bill-1-wave info-icon color-ff6961"></i>
-                <div class="info-row__block-text">
-                  <div class="text-prime">
-                    <span class="text-bg">340 uah</span>
-                    <span class="text-sm text-fw"> earned</span>
-                  </div>
-                  <div class="text-additional">
-                    <span class="text-sm">Lorem ipsum dolor sit amet.</span>
-                  </div>
-                </div>
-              </div>
+              </a>
             </div>
-            <div class="info-row">
-              <div class="mui-panel w-100">
+            <div class="info-row mui-panel w-100">
+              <div class="info-row__block">
                 <canvas id="myChart" width="500" height="500"></canvas>
               </div>
+              <div class="info-row__block-column">
+                <div class="info-row__block-item mui-panel">
+                  <i class="fa-solid fa-person-chalkboard info-icon color-08cad1"></i>
+                  <div class="info-row__block-text">
+                    <div class="text-prime">
+                      <span class="person-lessons text-bg">0</span>
+                      <span class="text-sm text-fw"> lessons</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="info-row__block-item mui-panel">
+                  <i class="fa-solid fa-people-group info-icon color-9d94ff"></i>
+                  <div class="info-row__block-text">
+                    <div class="text-prime">
+                      <span class="person-people text-bg">0</span>
+                      <span class="text-sm text-fw"> people have been teached</span>
+                    </div>
+                  </div>
+                </div>
+                <div class="info-row__block-item mui-panel">
+                  <i class="fa-solid fa-money-bill-1-wave info-icon color-ff6961"></i>
+                  <div class="info-row__block-text">
+                    <div class="text-prime">
+                      <span class="person-salary text-bg">0</span>
+                      <span class="text-bg">uah</span>
+                      <span class="text-sm text-fw"> earned</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
             <div class="info-row">
-              <div class="mui-panel w-100">
-                <i class="fa-solid fa-person info-icon"></i>
+              <div class="mui-panel w-100 user-image">
+
                 <div class="info-row__block-text">
                   <div class="text-prime">
                     <span class="text-bg">Denis Dmitriev</span>

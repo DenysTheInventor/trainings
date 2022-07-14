@@ -1,12 +1,11 @@
-import { Modal } from "./modules/modal.module";
 import { Form } from "./modules/form.module";
 import { Database } from "./modules/db.module";
-import { graph } from "./modules/chart.module";
+import { addTaskIcon } from "./utils";
 import "./style.css";
 
 const addRowBTN = document.getElementById("add-btn");
-const ctx = document.getElementById("myChart");
-const myChart = new Chart(ctx, graph);
+const tabsArea = document.querySelector(".control-tabs");
 
 window.addEventListener("load", Database.getDBrecords);
 addRowBTN.addEventListener("click", Form.handleNewForm);
+tabsArea.addEventListener("click", addTaskIcon);

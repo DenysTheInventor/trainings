@@ -42,3 +42,54 @@ export const basicFormSettings = {
   type: 1,
   note: " ",
 };
+
+export const lessons = [
+  {
+    theme: 1,
+    count: 0,
+    people: 0,
+    salary: 0,
+  },
+  {
+    theme: 2,
+    count: 0,
+    people: 0,
+    salary: 0,
+  },
+  {
+    theme: 3,
+    count: 0,
+    people: 0,
+    salary: 0,
+  },
+  {
+    theme: 4,
+    count: 0,
+    people: 0,
+    salary: 0,
+  },
+  {
+    theme: 5,
+    count: 0,
+    people: 0,
+    salary: 0,
+  },
+  {
+    theme: 6,
+    count: 0,
+    people: 0,
+    salary: 0,
+  },
+  {
+    theme: 7,
+    count: 0,
+    people: 0,
+    salary: 0,
+  },
+  {
+    theme: 8,
+    count: 0,
+    people: 0,
+    salary: 0,
+  },
+];

@@ -29,9 +29,21 @@ export function returnDateNow() {
 export function setRecordTime(type, startTime) {
   const startTimeArray = startTime.split("");
   startTimeArray[1] = parseInt(startTimeArray[1]);
-  type == 1 ? (startTimeArray[1] += 2) : (startTimeArray[1] += 1);
+  type == 1 ? (startTimeArray[1] += 1) : (startTimeArray[1] += 2);
   const endTime = startTimeArray.join("");
   return `${startTime} - ${endTime}`;
+}
+
+export function addTaskIcon(event) {
+  event.preventDefault();
+  const { target } = event;
+  const addBTN = document.querySelector("#add-btn");
+
+  if (!target.classList.contains("timesheet")) {
+    addBTN.style.display = "none";
+  } else {
+    addBTN.style.display = "block";
+  }
 }
 
 const API_KEY = "AIzaSyDGbR7vzUuZ7gIGr0pRVRjM5x-E8nqsWkQ";
