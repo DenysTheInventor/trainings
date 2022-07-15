@@ -2,22 +2,26 @@ import { basicFormSettings } from "../settings";
 import { setRecordTime, setThemeView } from "../utils";
 import { Modal } from "./modal.module";
 import { Database } from "./db.module";
+import { Auth } from "./auth.module";
 import { createGraph } from "./chart.module";
 import { lessons } from "../settings";
 
 export class Form {
   static renderList(records) {
     const table = document.querySelector("#records-table tbody");
-    table.innerHTML = "";
+    table.innerHTML = "data is loading...";
+    setTimeout(() => {
+      table.innerHTML = "";
+      Database.filterData(records);
+      for (const key in records) {
+        table.innerHTML += renderRecord(records[key], key);
+      }
 
-    for (const key in records) {
-      table.innerHTML += renderRecord(records[key], key);
-    }
+      const info = allLessonsCountArray(records);
 
-    const info = allLessonsCountArray(records);
-
-    addControlEvents();
-    drawGraph(info);
+      addControlEvents();
+      drawGraph(info);
+    }, 1000);
   }
 
   static handleNewForm() {
@@ -46,8 +50,6 @@ function allLessonsCountArray(records) {
     allLessons[index].salary += Number(lesson.salary);
   });
 
-  console.log(allLessons);
-
   return {
     personLessons: allLessons.map((lesson) => lesson.count),
     personPeople: allLessons.map((lesson) => lesson.people),
@@ -56,7 +58,6 @@ function allLessonsCountArray(records) {
 }
 
 function drawGraph(info) {
-  console.log(info);
   const { personLessons, personPeople, personSalary } = info;
   const lessons = personLessons.reduce((acc, item) => (acc += item), 0);
   const people = personPeople.reduce((acc, item) => (acc += item), 0);
@@ -66,12 +67,14 @@ function drawGraph(info) {
   const personLessonsHTML = document.querySelector(".person-lessons");
   const personPeopleHTML = document.querySelector(".person-people");
   const personSalaryHTML = document.querySelector(".person-salary");
+  const personNameHTML = document.querySelector(".user-name");
 
   const graph = createGraph(personLessons);
   const myChart = new Chart(ctx, graph);
   personLessonsHTML.innerText = lessons;
   personPeopleHTML.innerText = people;
   personSalaryHTML.innerText = salary;
+  personNameHTML.innerText = Auth.getUser().displayName;
 }
 
 function addFormListener(updated = true, id) {
@@ -88,9 +91,11 @@ function addFormListener(updated = true, id) {
       date: document.getElementById("record-date").value,
       link: document.getElementById("record-link").value,
       type: document.getElementById("record-type").value,
+      teacher: Auth.getUser().displayName,
       screenshot: document.getElementById("record-screenshot").value,
       notes: document.getElementById("record-notes").value.trim(),
       salary: Number(document.getElementById("record-type").value) * 350,
+      user: Auth.getUser().uid,
     };
 
     if (updated === true) {
@@ -108,7 +113,6 @@ function addFormListener(updated = true, id) {
 }
 
 function setFormFrame(form) {
-  console.log(form.module);
   return `
         <form class="mui-form" id="record-form">
         <div class="note-form__row">
@@ -203,7 +207,7 @@ function renderRecord(record, id) {
   <td class="row-type">${theme.name}</td>
   <td class="row-date">${record.date}</td>
   <td class="row-time">${time}</td>
-  <td class="row-teacher">Denis Dmitriev</td>
+  <td class="row-teacher">${record.teacher}</td>
   <td class="row-theme">${record.theme}</td>
   <td class="row-group">${record.group}</td>
   <td class="row-module">${record.module}</td>

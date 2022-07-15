@@ -1,13 +1,12 @@
 import "./style.css";
+import { Auth } from "./modules/auth.module";
 
 const signinForm = document.getElementById("reg-form");
 signinForm.addEventListener("submit", (e) => {
   e.preventDefault();
-  const { target } = e;
+
+  const email = signinForm.querySelector("#reg-form__mail").value.trim();
+  const password = signinForm.querySelector("#reg-form__password").value.trim();
+
+  Auth.signin(email, password);
 });
-
-// console.log("form submitted");
-
-//   setTimeout(() => {
-//     window.location.href = "/";
-//   }, 1000);

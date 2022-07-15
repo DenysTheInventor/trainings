@@ -1,4 +1,5 @@
 import { Form } from "./form.module";
+import { Auth } from "./auth.module";
 
 export class Database {
   static createBDrecord(record) {
@@ -68,5 +69,14 @@ export class Database {
       .then((updatedRecord) => {
         return updatedRecord;
       });
+  }
+
+  static filterData(records) {
+    const currentUser = Auth.getUser().uid;
+    for (const key in records) {
+      if (records[key].user != currentUser) {
+        delete records[key];
+      }
+    }
   }
 }

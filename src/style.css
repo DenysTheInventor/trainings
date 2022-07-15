@@ -26,6 +26,9 @@
  #sidebar {
    background-color: #2196F3;
    padding: 15px;
+   display: flex;
+   flex-direction: row;
+   justify-content: space-between;
  }
 
  .signin {
@@ -40,6 +43,7 @@
      width: 180px;
      height: 100%;
      padding-top: 30px;
+     flex-direction: column;
    }
  }
  
@@ -101,6 +105,10 @@
    cursor: context-menu;
  }
 
+ #sign-out {
+   margin: 0 0 60px 0;
+ }
+
  /* TABLE */
 
  table {
@@ -158,6 +166,24 @@
   
  .modal .modal-content {
     padding: 1rem;
+ }
+
+ .service-message {
+   margin: 0 10px;
+   width: 100%;
+   max-width: 300px;
+   padding: 10px 20px;
+   position: fixed;
+   display: flex;
+   align-items: center;
+   bottom: 20px;
+   left: 50%;
+   margin-left: -150px;
+   background-color: #fff;
+ }
+
+ .service-message i {
+   margin: 0 10px 0 0;
  }
 
  /* FORM */
@@ -345,6 +371,7 @@
    width: 100%;
    max-width: 500px;
    background-color: #fff;
+   margin: 0 15px;
 }
 
 .wrapper {
