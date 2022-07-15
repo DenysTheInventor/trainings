@@ -88,6 +88,7 @@ function addFormListener(updated = true, id) {
       date: document.getElementById("record-date").value,
       link: document.getElementById("record-link").value,
       type: document.getElementById("record-type").value,
+      screenshot: document.getElementById("record-screenshot").value,
       notes: document.getElementById("record-notes").value.trim(),
       salary: Number(document.getElementById("record-type").value) * 350,
     };
@@ -107,6 +108,7 @@ function addFormListener(updated = true, id) {
 }
 
 function setFormFrame(form) {
+  console.log(form.module);
   return `
         <form class="mui-form" id="record-form">
         <div class="note-form__row">
@@ -153,7 +155,7 @@ function setFormFrame(form) {
         </div>
         <div class="note-form__row">
             <div class="mui-textfield w-50">
-                <input type="link" id="record-link" value="${form.link}" required>
+                <input type="url" id="record-link" value="${form.link}" required>
                 <label>Teams link</label>
             </div>
             <div class="mui-select w-50">
@@ -163,6 +165,10 @@ function setFormFrame(form) {
                 </select>
                 <label>Module type</label>
             </div>
+        </div>
+        <div class="mui-textfield">
+                <input type="url" id="record-screenshot" value="${form.screenshot}" required>
+                <label>Screenshot</label>
         </div>
         <div class="mui-textfield">
           <textarea placeholder="Textarea" id="record-notes" value="${form.notes}">

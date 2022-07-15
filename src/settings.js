@@ -1,3 +1,5 @@
+import { returnDateNow } from "./utils";
+
 export const iconColors = [
   "color-ff6961",
   "color-ffb480",
@@ -37,9 +39,10 @@ export const basicFormSettings = {
   theme: "MS Office Word",
   people: 3,
   time: "10:00",
-  date: "2022-07-07",
+  date: returnDateNow(),
   link: " ",
   type: 1,
+  screenshot: " ",
   note: " ",
 };
 

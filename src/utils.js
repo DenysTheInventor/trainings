@@ -16,14 +16,11 @@ export function addZero(n) {
 export function returnDateNow() {
   const date = new Date();
 
-  const hours = addZero(date.getHours());
-  const minutes = addZero(date.getMinutes());
-
   const month = addZero(date.getMonth() + 1);
   const day = addZero(date.getDate());
   const year = date.getFullYear();
 
-  return `${hours}:${minutes}. ${day}-${month}-${year}`;
+  return `${year}-${month}-${day}`;
 }
 
 export function setRecordTime(type, startTime) {
@@ -45,6 +42,3 @@ export function addTaskIcon(event) {
     addBTN.style.display = "block";
   }
 }
-
-const TEAM_API_KEY =
-  "549f3a7741960eec918a71f67d9ae4086e22e838f5b6e5ac906da8cf8616f34e";
