@@ -31,14 +31,28 @@ export function setRecordTime(type, startTime) {
   return `${startTime} - ${endTime}`;
 }
 
-export function addTaskIcon(event) {
+export function addControlIcons(event) {
   event.preventDefault();
   const { target } = event;
   const addBTN = document.querySelector("#add-btn");
+  const filterBTN = document.querySelector("#filter-btn");
 
   if (!target.classList.contains("timesheet")) {
     addBTN.style.display = "none";
+    filterBTN.style.display = "none";
   } else {
     addBTN.style.display = "block";
+    filterBTN.style.display = "block";
+  }
+}
+
+export function toggleLoader() {
+  const loader = document.querySelector(".loader");
+  const isHidden = loader.hasAttribute("hidden");
+
+  if (isHidden) {
+    loader.removeAttribute("hidden");
+  } else {
+    loader.setAttribute("hidden", "");
   }
 }

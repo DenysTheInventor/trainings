@@ -26,11 +26,13 @@ export class Form {
 
   static handleNewForm() {
     Modal.show("Create new record:", setFormFrame(basicFormSettings));
+    setSelectValue(basicFormSettings);
     addFormListener(false);
   }
 
   static handleUpdateForm(formToChange, id) {
     Modal.show("Change record:", setFormFrame(formToChange));
+    setSelectValue(formToChange);
     addFormListener(true, id);
   }
 }
@@ -109,6 +111,27 @@ function addFormListener(updated = true, id) {
       Modal.cancel();
       Database.getDBrecords();
     }
+  });
+}
+
+function setSelectValue(formObject) {
+  const { module, theme, type } = formObject;
+
+  const moduleSelect = document.getElementById("record-module");
+  const moduleSelectOptions = moduleSelect.querySelectorAll("option");
+  const themeSelect = document.getElementById("record-theme");
+  const themeSelectOptions = themeSelect.querySelectorAll("option");
+  const typeSelect = document.getElementById("record-type");
+  const typeSelectOptions = typeSelect.querySelectorAll("option");
+
+  moduleSelectOptions.forEach((option) => {
+    option.value == module ? option.setAttribute("selected", true) : null;
+  });
+  themeSelectOptions.forEach((option) => {
+    option.value == theme ? option.setAttribute("selected", true) : null;
+  });
+  typeSelectOptions.forEach((option) => {
+    option.value == type ? option.setAttribute("selected", true) : null;
   });
 }
 
@@ -214,7 +237,7 @@ function renderRecord(record, id) {
   <td class="row-people">
     ${record.people}
   </td>
-  <td class="row-sort">
+  <td class="row-sort mui-dropdown--left">
       <button class="mui-btn mui-btn--primary" data-mui-toggle="dropdown">
           <i class="fa-solid fa-ellipsis-vertical"></i>
         </button>

@@ -7,12 +7,16 @@ export class Modal {
         <div class="modal-header">
             <h1>${title}</h1>
         </div>
+        <span class="modal-close">&times</span>
         <div class="modal-content">${content}</div>
     `;
 
     modal.innerHTML = html;
-
     mui.overlay("on", modal);
+
+    document.querySelector(".modal-close").addEventListener("click", () => {
+      mui.overlay("off");
+    });
   }
 
   static cancel() {

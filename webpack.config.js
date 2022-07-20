@@ -6,6 +6,7 @@ module.exports = {
   entry: {
     app: "./src/app.js",
     reg: "./src/reg.js",
+    prof: "./src/prof.js",
   },
   output: {
     filename: "bundle.[chunkhash].js",
@@ -24,6 +25,11 @@ module.exports = {
       filename: "signin.html",
       template: "./src/signin.html",
       chunks: ["reg"],
+    }),
+    new HTMLplugin({
+      filename: "profile.html",
+      template: "./src/profile.html",
+      chunks: ["prof"],
     }),
     new CleanWebpackPlugin(),
   ],

@@ -11,10 +11,22 @@
   </head>
   <body>
     <button class="mui-btn mui-btn--fab mui-btn--accent" id="add-btn">+</button>
+    <button class="mui-btn mui-btn--fab mui-btn--accent" id="filter-btn">
+      <i class="fa-solid fa-filter"></i>
+    </button>
     <div id="sidebar">
       <div class="mui--text-white mui--text-display1 mui--align-vertical">GIZ trainings</div>
 
-      <button class="mui-btn mui-btn--accent mui-btn--raised" id="sign-out">Out</button>
+      <div class="mui-dropdown mui-dropdown--up" id="sidebar-control">
+        <button class="mui-btn mui-btn--accent" data-mui-toggle="dropdown">
+          Teacher
+          <span class="mui-caret mui-caret--up"></span>
+        </button>
+        <ul class="mui-dropdown__menu">
+          <li><a href="./profile.html">Profile</a></li>
+          <li><a href="#" id="sign-out">Sign out</a></li>
+        </ul>
+      </div>
     </div>
     <div id="content" class="mui-container-fluid">
       <div class="mui-row">
@@ -22,7 +34,6 @@
           <ul class="mui-tabs__bar mui-tabs__bar--justified control-tabs">
             <li class="mui--is-active"><a data-mui-toggle="tab" class="timesheet" data-mui-controls="pane-justified-1">Timesheet</a></li>
             <li><a data-mui-toggle="tab" class="info" data-mui-controls="pane-justified-2">Info</a></li>
-            <li><a data-mui-toggle="tab" class="access" data-mui-controls="pane-justified-3">Access</a></li>
           </ul>
           <div class="mui-tabs__pane mui--is-active" id="pane-justified-1">
             <table class="mui-table" id="records-table">
@@ -125,13 +136,9 @@
               </div>
             </div>
           </div>
-          <div class="mui-tabs__pane" id="pane-justified-3">Pane-3</div>
         </div>
       </div>
     </div>
-
-    <script>
-      
-    </script>
+    <span class="loader"></span>
   </body>
 </html>
