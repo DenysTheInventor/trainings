@@ -15,7 +15,7 @@ export class Form {
       table.innerHTML = "";
       Database.filterData(records);
       for (const key in records) {
-        table.innerHTML += renderRecord(records[key], key, teacherIconPath);
+        table.innerHTML += renderRecord(records[key], key);
       }
 
       const info = allLessonsCountArray(records);
