@@ -434,6 +434,17 @@
    }
 }
 
+@media screen and (max-width: 532px) {
+   .panel-theme, .row-theme {
+      display: none;
+   }
+
+   #myChart {
+      width: 350px !important;
+      height: 350px !important;
+   }
+}
+
 .form-block {
    padding: 15px;
    width: 100%;
