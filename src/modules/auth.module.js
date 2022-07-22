@@ -18,7 +18,6 @@ const firebaseConfig = {
   messagingSenderId: "884621856070",
   appId: "1:884621856070:web:79ea366573e50834222947",
 };
-
 const app = initializeApp(firebaseConfig);
 const auth = getAuth();
 
@@ -52,10 +51,13 @@ export class Auth {
     return auth.currentUser;
   }
 
-  static updateUser() {
+  static updateUser(user) {
     updateProfile(auth.currentUser, {
-      displayName: "Teacher",
-      photoURL: "https://example.com/jane-q-user/profile.jpg",
+      displayName: user.displayName,
+      phoneNumber: user.phoneNumber,
+      email: user.email,
+      photoURL: user.photoURL,
+      tenantId: true,
     })
       .then(() => {
         Modal.service(true, "Profile successfully updated");

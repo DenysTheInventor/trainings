@@ -23,7 +23,7 @@ export class Modal {
     mui.overlay("off");
   }
 
-  static service(status, text) {
+  static service(status, text, duration = 1500) {
     const icon = status
       ? `<i class="fa-solid fa-circle-check color-08cad1"></i>`
       : `<i class="fa-solid fa-circle-xmark color-ff6961"></i>`;
@@ -41,7 +41,7 @@ export class Modal {
 
     setTimeout(() => {
       document.querySelector(".service-message").remove();
-    }, 1500);
+    }, duration);
   }
 
   static toggleLoader() {

@@ -10,30 +10,32 @@
   </head>
   <body>
     <div id="sidebar">
-      <div class="mui--text-white mui--text-display1 mui--align-vertical">Profile</div>
-
+      <button class="mui-btn mui-btn--raised" id="get-user">Button</button>
+      <div class="mui--text-white mui--text-display1 mui--align-vertical">
+          Profile
+      </div>
       <div class="mui-dropdown mui-dropdown--up" id="sidebar-control">
         <button class="mui-btn mui-btn--accent" data-mui-toggle="dropdown">
           Teacher
           <span class="mui-caret mui-caret--up"></span>
         </button>
         <ul class="mui-dropdown__menu">
-          <li><a href="./profile.html">Profile</a></li>
+          <li><a href="/">Timesheets</a></li>
           <li><a href="#" id="sign-out">Sign out</a></li>
         </ul>
       </div>
     </div>
     <div id="content" class="mui-container-fluid">
       <div class="mui-row">
-        <div class="mui-col-sm-10 mui-col-sm-offset-1">
-          <h1>Teacher profile</h1>
+        <div class="mui-col-sm-10 mui-col-sm-offset-1 user-settings">
         <form class="mui-form" id="user-form">
+          <h2>General information</h2>
         <div class="note-form__row">
-            <div class="mui-textfield mui-textfield--float-label w-50">
+            <div class="mui-textfield w-50">
                 <input type="text" id="user-name" required>
                 <label>Name</label>
             </div>
-            <div class="mui-textfield mui-textfield--float-label w-50">
+            <div class="mui-textfield w-50">
                 <input type="text" id="user-surname" required>
                 <label>Surname</label>
             </div>
@@ -51,14 +53,31 @@
                 <label>Date of birth:</label>
             </div>
         </div>
-            <div class="mui-textfield mui-textfield--float-label">
-                <input type="email" id="user-mail" required>
-                <label>E-mail:</label>
-            </div>
-        <div class="mui-textfield mui-textfield--float-label">
-                <input type="url" id="user-avatar" required>
-                <label>Avatar</label>
+        <div class="note-form__row">
+          <div class="mui-textfield w-50">
+            <input type="email" id="user-mail" required>
+            <label>E-mail:</label>
         </div>
+        <div class="mui-textfield w-50">
+          <input type="tel" id="user-phone" required>
+          <label>Phone number:</label>
+      </div>
+        </div>
+        <div class="note-form__row">
+          <div class="mui-textfield w-30">
+            <input type="url" id="user-avatar" disabled required>
+            <label>Avatar</label>
+          </div>
+          <div class="mui-textfield w-30">
+            <input type="url" id="user-diplomas" disabled required>
+            <label>Diplomas</label>
+          </div>
+          <div class="mui-textfield w-30">
+            <input type="url" id="user-screens" disabled required>
+            <label>Screenshots</label>
+          </div>
+        </div>
+        
         <div class="mui-textfield">
           <textarea placeholder="Textarea" id="user-notes">
           </textarea>
@@ -67,7 +86,11 @@
         <button type="submit" class="mui-btn mui-btn--raised">Save user</button>
         </form>
         </div>
-      </div>
+        <div class="mui-col-sm-10 mui-col-sm-offset-1 user-preview">
+          <h2>Profile preview</h2>
+          <img class="user-profile__photo" src="" alt="">
+        </div>          
+        </div>
     </div>
   </body>
 </html>

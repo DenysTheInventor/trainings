@@ -2,9 +2,9 @@ import { Form } from "./form.module";
 import { Auth } from "./auth.module";
 
 export class Database {
-  static createBDrecord(record) {
+  static createBDrecord(record, baseName = "records") {
     return fetch(
-      "https://giz-trainings-default-rtdb.asia-southeast1.firebasedatabase.app/records.json",
+      `https://giz-trainings-default-rtdb.asia-southeast1.firebasedatabase.app/${baseName}.json`,
       {
         method: "POST",
         body: JSON.stringify(record),

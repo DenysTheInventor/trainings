@@ -1,20 +1,21 @@
-import { basicFormSettings } from "../settings";
-import { setRecordTime, setThemeView } from "../utils";
 import { Modal } from "./modal.module";
 import { Database } from "./db.module";
 import { Auth } from "./auth.module";
 import { createGraph } from "./chart.module";
 import { lessons } from "../settings";
+import { basicFormSettings } from "../settings";
+import { setRecordTime, setThemeView } from "../utils";
 
 export class Form {
   static renderList(records) {
     const table = document.querySelector("#records-table tbody");
-    table.innerHTML = "data is loading...";
+    table.innerHTML = "";
+    Modal.service(true, "lessons are loading...", 1000);
     setTimeout(() => {
       table.innerHTML = "";
       Database.filterData(records);
       for (const key in records) {
-        table.innerHTML += renderRecord(records[key], key);
+        table.innerHTML += renderRecord(records[key], key, teacherIconPath);
       }
 
       const info = allLessonsCountArray(records);
@@ -230,7 +231,9 @@ function renderRecord(record, id) {
   <td class="row-type">${theme.name}</td>
   <td class="row-date">${record.date}</td>
   <td class="row-time">${time}</td>
-  <td class="row-teacher">${record.teacher}</td>
+  <td class="row-teacher">
+    ${record.teacher}
+  </td>
   <td class="row-theme">${record.theme}</td>
   <td class="row-group">${record.group}</td>
   <td class="row-module">${record.module}</td>
