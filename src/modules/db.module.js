@@ -29,6 +29,23 @@ export class Database {
       });
   }
 
+  static getFilteredDBrecords(filter) {
+    fetch(
+      `https://giz-trainings-default-rtdb.asia-southeast1.firebasedatabase.app/records.json`
+    )
+      .then((response) => response.json())
+      .then((records) => {
+        const filteredRecords = {};
+        for (const key in records) {
+          records[key].systemDate >= filter.startDate &&
+          records[key].systemDate <= filter.endDate
+            ? (filteredRecords[key] = records[key])
+            : null;
+        }
+        Form.renderList(filteredRecords);
+      });
+  }
+
   static getDBrecord(id) {
     console.log(
       `https://giz-trainings-default-rtdb.asia-southeast1.firebasedatabase.app/records/${id}.json`

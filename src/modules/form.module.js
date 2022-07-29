@@ -6,20 +6,40 @@ import { lessons } from "../settings";
 import { basicFormSettings } from "../settings";
 import { setRecordTime, setThemeView } from "../utils";
 
+let myChart = null;
+
 export class Form {
   static renderList(records) {
     const table = document.querySelector("#records-table tbody");
+    if (records == null) {
+      Modal.service(false, "Sorry. We didn't find any records", 2000);
+      return;
+    }
     table.innerHTML = "";
     Modal.service(true, "lessons are loading...", 1000);
     setTimeout(() => {
       table.innerHTML = "";
       Database.filterData(records);
+
+      const dates = [];
       for (const key in records) {
-        table.innerHTML += renderRecord(records[key], key);
+        if (!dates.includes(records[key].date)) {
+          dates.push(records[key].date);
+        }
+        dates.sort();
       }
 
-      const info = allLessonsCountArray(records);
+      const notesID = Object.keys(records);
+      dates.forEach((date) => {
+        table.innerHTML += addDateRow(date);
+        notesID.forEach((note) => {
+          if (records[note].date == date) {
+            table.innerHTML += renderRecord(records[note], note);
+          }
+        });
+      });
 
+      const info = allLessonsCountArray(records);
       addControlEvents();
       drawGraph(info);
     }, 1000);
@@ -39,6 +59,7 @@ export class Form {
 }
 
 function allLessonsCountArray(records) {
+  console.log("Lessons from settings: ", lessons);
   const allObjLessons = [];
   const allLessons = [...lessons];
 
@@ -52,6 +73,8 @@ function allLessonsCountArray(records) {
     allLessons[index].people += Number(lesson.people);
     allLessons[index].salary += Number(lesson.salary);
   });
+
+  console.log(allLessons);
 
   return {
     personLessons: allLessons.map((lesson) => lesson.count),
@@ -73,7 +96,12 @@ function drawGraph(info) {
   const personNameHTML = document.querySelector(".user-name");
 
   const graph = createGraph(personLessons);
-  const myChart = new Chart(ctx, graph);
+
+  if (myChart != null) {
+    myChart.destroy();
+  }
+  myChart = new Chart(ctx, graph);
+
   personLessonsHTML.innerText = lessons;
   personPeopleHTML.innerText = people;
   personSalaryHTML.innerText = salary;
@@ -81,6 +109,7 @@ function drawGraph(info) {
 }
 
 function addFormListener(updated = true, id) {
+  addDiplomaListener();
   const recordForm = document.getElementById("record-form");
   recordForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -92,11 +121,13 @@ function addFormListener(updated = true, id) {
       people: document.getElementById("record-people").value,
       time: document.getElementById("record-time").value,
       date: document.getElementById("record-date").value,
+      systemDate: +new Date(document.getElementById("record-date").value),
       link: document.getElementById("record-link").value,
       type: document.getElementById("record-type").value,
       teacher: Auth.getUser().displayName,
+      level: document.getElementById("record-level").value,
       screenshot: document.getElementById("record-screenshot").value,
-      notes: document.getElementById("record-notes").value.trim(),
+      diplomas: document.getElementById("record-diplomas").value,
       salary: Number(document.getElementById("record-type").value) * 350,
       user: Auth.getUser().uid,
     };
@@ -182,9 +213,12 @@ function setFormFrame(form) {
             </div>
         </div>
         <div class="note-form__row">
-            <div class="mui-textfield w-50">
-                <input type="url" id="record-link" value="${form.link}" required>
-                <label>Teams link</label>
+            <div class="mui-select w-50">
+              <select id="record-level" value="${form.level}" required>
+                <option value="1">1</option>
+                <option value="2">2</option>
+              </select>
+              <label>Module level</label>
             </div>
             <div class="mui-select w-50">
                 <select id="record-type" value="${form.type}" required>
@@ -195,15 +229,18 @@ function setFormFrame(form) {
             </div>
         </div>
         <div class="mui-textfield">
+                <input type="url" id="record-link" value="${form.link}" required>
+                <label>Teams link</label>
+          </div>
+        <div class="mui-textfield">
                 <input type="url" id="record-screenshot" value="${form.screenshot}" required>
                 <label>Screenshot</label>
         </div>
-        <div class="mui-textfield">
-          <textarea placeholder="Textarea" id="record-notes" value="${form.notes}">
-          </textarea>
-          <label>Notes</label>
+        <div class="mui-textfield diplomas-field">
+                <input type="url" id="record-diplomas" value="${form.diplomas}" required>
+                <label>Diplomas</label>
         </div>
-        <button type="submit" class="mui-btn mui-btn--raised">Save record</button>
+        <button type="submit" class="mui-btn mui-btn--raised mui-btn--accent">Save record</button>
         </form>
         `;
 }
@@ -223,7 +260,7 @@ function addControlEvents() {
 function renderRecord(record, id) {
   const theme = setThemeView(record.theme);
   const time = setRecordTime(record.type, record.time);
-  return `
+  return ` 
   <tr class="row mui-panel" data-id="${id}">
   <td class="row-icon ${theme.color}">
       ${theme.icon}
@@ -269,4 +306,34 @@ function updateRecord(e) {
   const record = target.closest(".row");
   const recordId = record.dataset.id;
   Database.getDBrecord(recordId);
+}
+
+function addDateRow(date) {
+  return `
+    <tr>
+      <td class="items-date" colspan="2">
+        <span class='table-date'>
+          ${date}
+        </span>
+      </td>
+    </tr>
+  `;
+}
+
+function triggerDiplomasField(type) {
+  if (type == 1) {
+    document.querySelector(".diplomas-field").style.display = "block";
+    document.getElementById("record-diplomas").setAttribute("required", true);
+  } else {
+    document.querySelector(".diplomas-field").style.display = "none";
+    document.getElementById("record-diplomas").removeAttribute("required");
+  }
+}
+
+function addDiplomaListener() {
+  const typeSelect = document.getElementById("record-type");
+  triggerDiplomasField(typeSelect.value);
+  typeSelect.addEventListener("change", (e) => {
+    triggerDiplomasField(e.target.value);
+  });
 }

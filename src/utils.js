@@ -23,6 +23,23 @@ export function returnDateNow() {
   return `${year}-${month}-${day}`;
 }
 
+export function returnFirstAndLastDate() {
+  const date = new Date();
+
+  const month = addZero(date.getMonth() + 1);
+  const year = date.getFullYear();
+  const firstDayOfMonth = addZero(new Date(year, month, 1).getDate());
+  const lastDayOfMonth = addZero(new Date(year, month, 0).getDate());
+
+  const startDate = `${year}-${month}-${firstDayOfMonth}`;
+  const endDate = `${year}-${month}-${lastDayOfMonth}`;
+
+  return {
+    firstDay: startDate,
+    lastDay: endDate,
+  };
+}
+
 export function setRecordTime(type, startTime) {
   const startTimeArray = startTime.split("");
   startTimeArray[1] = parseInt(startTimeArray[1]);

@@ -42,8 +42,9 @@ export const basicFormSettings = {
   date: returnDateNow(),
   link: " ",
   type: 1,
+  level: 1,
   screenshot: " ",
-  note: " ",
+  diplomas: " ",
 };
 
 export const lessons = [

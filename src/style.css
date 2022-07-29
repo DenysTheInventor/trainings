@@ -152,6 +152,17 @@
     text-align: center !important;
  }
 
+ .items-date {
+   text-align: left !important;
+   padding: 2px !important;
+ }
+
+ .table-date {
+   color: #797979;
+   font-weight: 700;
+   font-size: 12px;
+ }
+
  .teacher__photo {
    width: 30px;
    height: 30px;
@@ -196,13 +207,27 @@
     position: relative;
    }
 
+   .modal-header {
+      color: #fff;
+      background-color: #2196F3;
+      padding: 20px 0 10px 0;
+   }
+
+   .modal-header h1 {
+      margin: 0;
+   }
+
    .modal-close {
       position: absolute;
       right: 20px;
       top: 10px;
-      color: red;
+      color: rgb(255, 255, 255);
       font-size: 40px;
       cursor: pointer;
+   }
+
+   .modal-close:hover {
+      color: #FF4081;
    }
   
  .modal h1 {
@@ -324,6 +349,10 @@
  .link-block i {
    margin: 0 100px;
    font-size: 30px;
+ }
+
+ .diplomas-field {
+   display: none;
  }
 
 /* MEDIA */
