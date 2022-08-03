@@ -232,7 +232,7 @@ function setFormFrame(form) {
                 <input type="url" id="record-link" value="${form.link}" required>
                 <label>Teams link</label>
           </div>
-        <div class="mui-textfield">
+        <div class="mui-textfield screenshot-field">
                 <input type="url" id="record-screenshot" value="${form.screenshot}" required>
                 <label>Screenshot</label>
         </div>
@@ -295,6 +295,7 @@ function deleteRecord(e) {
   const { target } = e;
   const record = target.closest(".row");
   const recordId = record.dataset.id;
+  const recordDate = record.querySelector(".row-date").innerText;
 
   Database.deleteDBrecord(recordId);
   record.remove();
@@ -321,12 +322,18 @@ function addDateRow(date) {
 }
 
 function triggerDiplomasField(type) {
+  document.getElementById("record-diplomas").value = "";
+  document.getElementById("record-screenshot").value = "";
   if (type == 1) {
     document.querySelector(".diplomas-field").style.display = "block";
     document.getElementById("record-diplomas").setAttribute("required", true);
+    document.querySelector(".screenshot-field").style.display = "none";
+    document.getElementById("record-screenshot").removeAttribute("required");
   } else {
     document.querySelector(".diplomas-field").style.display = "none";
     document.getElementById("record-diplomas").removeAttribute("required");
+    document.querySelector(".screenshot-field").style.display = "block";
+    document.getElementById("record-screenshot").setAttribute("required", true);
   }
 }
 
@@ -336,4 +343,8 @@ function addDiplomaListener() {
   typeSelect.addEventListener("change", (e) => {
     triggerDiplomasField(e.target.value);
   });
+}
+
+function deleteTaskDateFromTable(date) {
+  if()
 }
